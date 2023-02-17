@@ -26,6 +26,16 @@ app.use(
   bdyParser.urlencoded({ extended: false })
 );
 
+// MIDDLEWARE
+
+// ERROR HANDLING
+
+const { errorHandling } = require("./middleware/errorhandling");
+
+// MESSAGE
+
+const { message } = require("./middleware/message");
+
 // HOME or "/" --- NB
 
 route.get("^/$", (req, res) => {
