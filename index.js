@@ -28,7 +28,8 @@ app.use(
 
 // HOME or "/" --- NB
 
-route.get("/", (req, res) => {
+route.get("^/$", (req, res) => {
+  // it will start and end with "/" ; "^" = start with ; "$" = end with
   res.status(200).sendFile(path.join(__dirname, "./views/index.html"));
 });
 
