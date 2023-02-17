@@ -6,7 +6,7 @@ const express = require("express");
 const path = require("path");
 const db = require("./config");
 const bdyParser = require("body-parser");
-const cors = require('cors');
+const cors = require("cors");
 const port = parseInt(process.env.port) || 3000;
 
 // EXPRESS APP
@@ -16,7 +16,15 @@ const app = express();
 // ROUTER
 
 const route = express.Router();
-app.use(route, express.json, bdyParser.urlencoded({ extended: false }));
+app.use(
+  route,
+  cors({
+    origin: ["http://127.0.0.1:3000", "http://localhost:3000"],
+    credentials: true,
+  }),
+  express.json,
+  bdyParser.urlencoded({ extended: false })
+);
 
 // HOME or "/" --- NB
 
@@ -97,7 +105,7 @@ route.post("/register", bdyParser.json(), (req, res) => {
     SET ?;
     `;
 
-  db.query(strQry,[details], (err) => {
+  db.query(strQry, [details], (err) => {
     if (err) {
       res.status(400).json({ err });
     } else {
@@ -107,7 +115,6 @@ route.post("/register", bdyParser.json(), (req, res) => {
     }
   });
 });
-
 
 //  DELETE --- TO DELETE
 
@@ -124,5 +131,5 @@ route.delete("/users/:catID", (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log(`Server is running at port ${port}`);
-  });
+  console.log(`Server is running at port ${port}`);
+});
